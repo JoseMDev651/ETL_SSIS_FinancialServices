@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="FinancialTransactions"
   DTS:PackageType="5"
-  DTS:VersionBuild="24"
-  DTS:VersionGUID="{57C426FB-D45E-4131-8F92-A8DCC3D8EB49}">
+  DTS:VersionBuild="28"
+  DTS:VersionGUID="{B416D8DD-1FE7-40BB-B13D-02181DDE4486}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1526,6 +1526,40 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
           SQLTask:SqlStatementSource="truncate table dbo.financial_transactions" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate exchange_rates"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{cb1143a8-8deb-4968-9e4b-f7a7e838167f}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate exchange_rates"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}"
+          SQLTask:SqlStatementSource="truncate table dbo.exchange_rates" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate suppliers"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{3bc96eaa-ecf7-4531-923c-fed1cec64f33}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate suppliers"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}"
+          SQLTask:SqlStatementSource="truncate table dbo.suppliers" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -1536,6 +1570,22 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción"
       DTS:To="Package\CostumerTransactions" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{DD38F6DE-870D-45D4-9D62-69F64B0EDEAC}"
+      DTS:From="Package\Truncate exchange_rates"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\exchange_rates" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{17A28E6C-C6D9-4437-9F68-1E8286CC0A48}"
+      DTS:From="Package\Truncate suppliers"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 2"
+      DTS:To="Package\suppliers" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
@@ -1548,45 +1598,33 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="183.2,41.6"
           Id="Package\CostumerTransactions"
-          TopLeft="219.99998797973,226.199998427033" />
+          TopLeft="173.333323862817,227.933331748313" />
         <NodeLayout
           Size="152,41.6"
           Id="Package\exchange_rates"
-          TopLeft="620.833299412497,235.733331694073" />
+          TopLeft="543.33330364691,236.599998354713" />
         <NodeLayout
-          Size="379.2,41.6"
+          Size="306.4,41.6"
           Id="Package\Truncate Datawarehouse Financial Transactions"
-          TopLeft="109.999993989865,127.399999114076" />
+          TopLeft="109.999993989865,125.666665792796" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="299.599993989865,168.999999114076">
+          TopLeft="264.066658926341,167.266665792796">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="11.9999939898653,57.1999993129571"
+              EndConnector="0,60.6666659555169"
               Start="0,0"
-              End="11.9999939898653,49.6999993129571">
+              End="0,53.1666659555169">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,24.5999996564785" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,24.5999996564785"
-                    Point2="0,28.5999996564785"
-                    Point3="4,28.5999996564785" />
-                  <mssgle:LineSegment
-                    End="7.99999398986529,28.5999996564785" />
-                  <mssgle:CubicBezierSegment
-                    Point1="7.99999398986529,28.5999996564785"
-                    Point2="11.9999939898653,28.5999996564785"
-                    Point3="11.9999939898653,32.5999996564785" />
-                  <mssgle:LineSegment
-                    End="11.9999939898653,49.6999993129571" />
+                    End="0,53.1666659555169" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1598,7 +1636,71 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
         <NodeLayout
           Size="173.6,41.6"
           Id="Package\suppliers"
-          TopLeft="1002.49994522582,233.999998372793" />
+          TopLeft="922.499949596825,235.733331694073" />
+        <NodeLayout
+          Size="196,41.6"
+          Id="Package\Truncate exchange_rates"
+          TopLeft="519.166638300652,109.39999994576" />
+        <NodeLayout
+          Size="164,41.6"
+          Id="Package\Truncate suppliers"
+          TopLeft="909.999955743553,107.66666662448" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="618.249970973781,150.99999994576">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,85.5999984089534"
+              Start="0,0"
+              End="0,78.0999984089534">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,78.0999984089534" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 2]"
+          TopLeft="991.999955743553,149.26666662448">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="17.299993853272,86.4666650695935"
+              Start="0,0"
+              End="17.299993853272,78.9666650695935">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.2333325347967" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,39.2333325347967"
+                    Point2="0,43.2333325347967"
+                    Point3="4,43.2333325347967" />
+                  <mssgle:LineSegment
+                    End="13.299993853272,43.2333325347967" />
+                  <mssgle:CubicBezierSegment
+                    Point1="13.299993853272,43.2333325347967"
+                    Point2="17.299993853272,43.2333325347967"
+                    Point3="17.299993853272,47.2333325347967" />
+                  <mssgle:LineSegment
+                    End="17.299993853272,78.9666650695935" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1606,7 +1708,7 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
     design-time-name="Package\CostumerTransactions">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="214.4,41.6"
           Id="Package\CostumerTransactions\Source financial_transactions"
@@ -1646,7 +1748,9 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
