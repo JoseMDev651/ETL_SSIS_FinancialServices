@@ -4,3 +4,6 @@ add [customer_name] [varchar](50) NULL,
 	[customer_phone] [varchar](20) NULL
 
 truncate table dbo.financial_transactions;
+
+alter table dbo.financial_transactions
+add [amount_USD] float NULL
