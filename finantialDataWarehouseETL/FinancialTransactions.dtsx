@@ -11,10 +11,24 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="FinancialTransactions"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{6E5B8F0E-E807-4D14-BE7E-6EE4F1CC8390}">
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{2DF2F242-8045-49C7-94F0-F18D97F8F934}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{6AF9CC8C-9A2D-4CFE-A671-FF2B4A756D87}"
+      DTS:ObjectName="Administrador de conexiones con Excel">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Proyectos\BD\SSIS\ETL_SSIS_FinancialServices\data\Files\exchange_rates.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
@@ -548,6 +562,455 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\exchange_rates"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{FB5413F6-E194-45D2-8071-5EC77734B51F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="exchange_rates"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\exchange_rates\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\exchange_rates\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\exchange_rates\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[from_currency]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="from_currency"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[from_currency]" />
+                    <inputColumn
+                      refId="Package\exchange_rates\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[to_currency]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="to_currency"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[to_currency]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\exchange_rates\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\exchange_rates\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\exchange_rates\Conversión de datos.Outputs[Salida de conversión de datos].Columns[from_currency_varchar]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\exchange_rates\Conversión de datos.Outputs[Salida de conversión de datos].Columns[from_currency_varchar]"
+                      name="from_currency_varchar"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[from_currency]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\exchange_rates\Conversión de datos.Outputs[Salida de conversión de datos].Columns[to_currency_varchar]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\exchange_rates\Conversión de datos.Outputs[Salida de conversión de datos].Columns[to_currency_varchar]"
+                      name="to_currency_varchar"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[to_currency]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\exchange_rates\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\exchange_rates\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\exchange_rates\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\exchange_rates\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\exchange_rates\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\exchange_rates\Destination - Warehouse exchange_rates"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destination - Warehouse exchange_rates"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[exchange_rates]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Connections[OleDbConnection]"
+                  connectionManagerID="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[financial_datawarehouse_jm.sa]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].Columns[exchange_rate]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="exchange_rate"
+                      externalMetadataColumnId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].ExternalColumns[exchange_rate]"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[exchange_rate]" />
+                    <inputColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].Columns[effective_date]"
+                      cachedDataType="date"
+                      cachedName="effective_date"
+                      externalMetadataColumnId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].ExternalColumns[effective_date]"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[effective_date]" />
+                    <inputColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].Columns[from_currency_varchar]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="from_currency_varchar"
+                      externalMetadataColumnId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].ExternalColumns[from_currency]"
+                      lineageId="Package\exchange_rates\Conversión de datos.Outputs[Salida de conversión de datos].Columns[from_currency_varchar]" />
+                    <inputColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].Columns[to_currency_varchar]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="to_currency_varchar"
+                      externalMetadataColumnId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].ExternalColumns[to_currency]"
+                      lineageId="Package\exchange_rates\Conversión de datos.Outputs[Salida de conversión de datos].Columns[to_currency_varchar]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].ExternalColumns[from_currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="from_currency" />
+                    <externalMetadataColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].ExternalColumns[to_currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="to_currency" />
+                    <externalMetadataColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].ExternalColumns[exchange_rate]"
+                      dataType="r8"
+                      name="exchange_rate" />
+                    <externalMetadataColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB].ExternalColumns[effective_date]"
+                      dataType="dbDate"
+                      name="effective_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\exchange_rates\Destination - Warehouse exchange_rates.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Destination - Warehouse exchange_rates.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\exchange_rates\Destination - Warehouse exchange_rates.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\exchange_rates\Origen de Excel - exchange_rates"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Origen de Excel"
+              name="Origen de Excel - exchange_rates"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">Hoja1$</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="La asignación de parámetros del comando SQL a variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\exchange_rates\Origen de Excel - exchange_rates.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+                  connectionManagerRefId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel]"
+                  name="Salida de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[from_currency]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].ExternalColumns[from_currency]"
+                      length="255"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[from_currency]"
+                      name="from_currency"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[to_currency]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].ExternalColumns[to_currency]"
+                      length="255"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[to_currency]"
+                      name="to_currency"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[exchange_rate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].ExternalColumns[exchange_rate]"
+                      length="255"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[exchange_rate]"
+                      name="exchange_rate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[effective_date]"
+                      dataType="date"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].ExternalColumns[effective_date]"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].Columns[effective_date]"
+                      name="effective_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].ExternalColumns[from_currency]"
+                      dataType="wstr"
+                      length="255"
+                      name="from_currency" />
+                    <externalMetadataColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].ExternalColumns[to_currency]"
+                      dataType="wstr"
+                      length="255"
+                      name="to_currency" />
+                    <externalMetadataColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].ExternalColumns[exchange_rate]"
+                      dataType="wstr"
+                      length="255"
+                      name="exchange_rate" />
+                    <externalMetadataColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel].ExternalColumns[effective_date]"
+                      dataType="date"
+                      name="effective_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[from_currency]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[from_currency]"
+                      name="from_currency" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[to_currency]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[to_currency]"
+                      name="to_currency" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[exchange_rate]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[exchange_rate]"
+                      name="exchange_rate" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[effective_date]"
+                      dataType="date"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[effective_date]"
+                      name="effective_date" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\exchange_rates.Paths[Salida de conversión de datos]"
+              endId="Package\exchange_rates\Destination - Warehouse exchange_rates.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de conversión de datos"
+              startId="Package\exchange_rates\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\exchange_rates.Paths[Salida de origen de Excel]"
+              endId="Package\exchange_rates\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de origen de Excel"
+              startId="Package\exchange_rates\Origen de Excel - exchange_rates.Outputs[Salida de origen de Excel]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Truncate Datawarehouse Financial Transactions"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
@@ -629,6 +1092,10 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\exchange_rates"
+          TopLeft="620.833299412497,235.733331694073" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -697,6 +1164,108 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\CostumerTransactions\Destination Datawarehouse financial_transactions">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\exchange_rates">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="235.2,41.6"
+          Id="Package\exchange_rates\Origen de Excel - exchange_rates"
+          TopLeft="338.999994948506,104.999998435378" />
+        <NodeLayout
+          Size="269.6,41.6"
+          Id="Package\exchange_rates\Destination - Warehouse exchange_rates"
+          TopLeft="324.999995157123,317.999995261431" />
+        <NodeLayout
+          Size="173.6,41.6"
+          Id="Package\exchange_rates\Conversión de datos"
+          TopLeft="364.999994561076,212.999996826053" />
+        <EdgeLayout
+          Id="Package\exchange_rates.Paths[Salida de origen de Excel]"
+          TopLeft="454.199994754791,146.599998435378">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66.3999983906746"
+              Start="0,0"
+              End="0,58.8999983906746">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.8999983906746" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\exchange_rates.Paths[Salida de conversión de datos]"
+          TopLeft="451.799994561076,254.599996826053">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="8.00000059604656,63.3999984353783"
+              Start="0,0"
+              End="8.00000059604656,55.8999984353783">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.6999992176891" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.6999992176891"
+                    Point2="0,31.6999992176891"
+                    Point3="4,31.6999992176891" />
+                  <mssgle:LineSegment
+                    End="4.00000059604656,31.6999992176891" />
+                  <mssgle:CubicBezierSegment
+                    Point1="4.00000059604656,31.6999992176891"
+                    Point2="8.00000059604656,31.6999992176891"
+                    Point3="8.00000059604656,35.6999992176891" />
+                  <mssgle:LineSegment
+                    End="8.00000059604656,55.8999984353783" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\exchange_rates\Origen de Excel - exchange_rates">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\exchange_rates\Destination - Warehouse exchange_rates">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
