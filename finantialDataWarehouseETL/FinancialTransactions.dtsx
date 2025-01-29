@@ -11,21 +11,77 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="FinancialTransactions"
   DTS:PackageType="5"
-  DTS:VersionBuild="17"
-  DTS:VersionGUID="{2DF2F242-8045-49C7-94F0-F18D97F8F934}">
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{57C426FB-D45E-4131-8F92-A8DCC3D8EB49}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+      DTS:refId="Package.ConnectionManagers[CSV Suppliers]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{3523626E-E859-4215-B0F6-9CAD9C98B22E}"
+      DTS:ObjectName="CSV Suppliers">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="3082"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="D:\Proyectos\BD\SSIS\ETL_SSIS_FinancialServices\data\Files\suppliers.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="supplier_id"
+              DTS:DTSID="{65AAC154-DDD9-456A-8C3D-C8531F9A04B9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="supplier_name"
+              DTS:DTSID="{4CA26899-24D6-4596-B883-061AF9FFCD9D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="contact_name"
+              DTS:DTSID="{843F0AB7-E643-494B-BB6B-5358DD2E686F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phone"
+              DTS:DTSID="{A9F8E650-F376-4ACF-8621-04C07D940A85}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Exchange Rates]"
       DTS:CreationName="EXCEL"
       DTS:DTSID="{6AF9CC8C-9A2D-4CFE-A671-FF2B4A756D87}"
-      DTS:ObjectName="Administrador de conexiones con Excel">
+      DTS:ObjectName="Excel Exchange Rates">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Proyectos\BD\SSIS\ETL_SSIS_FinancialServices\data\Files\exchange_rates.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Proyectos\BD\SSIS\ETL_SSIS_FinancialServices\data\Files\exchange_rates.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -876,8 +932,8 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
               <connections>
                 <connection
                   refId="Package\exchange_rates\Origen de Excel - exchange_rates.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Administrador de conexiones con Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Exchange Rates]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Exchange Rates]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -1011,6 +1067,449 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\suppliers"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{6B69A267-ABBE-4FAC-A94F-9EB72712ED72}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="suppliers"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\suppliers\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\suppliers\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\suppliers\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[phone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="phone"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[phone]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\suppliers\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\suppliers\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\suppliers\Conversión de datos.Outputs[Salida de conversión de datos].Columns[phone_25]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="25"
+                      lineageId="Package\suppliers\Conversión de datos.Outputs[Salida de conversión de datos].Columns[phone_25]"
+                      name="phone_25"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[phone]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\suppliers\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\suppliers\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\suppliers\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\suppliers\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\suppliers\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\suppliers\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\suppliers\Destination - Warehouse Suppliers"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destination - Warehouse Suppliers"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[suppliers]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\suppliers\Destination - Warehouse Suppliers.Connections[OleDbConnection]"
+                  connectionManagerID="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[financial_datawarehouse_jm.sa]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].Columns[supplier_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="supplier_id"
+                      externalMetadataColumnId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_id]"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[supplier_id]" />
+                    <inputColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].Columns[supplier_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="supplier_name"
+                      externalMetadataColumnId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_name]"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[supplier_name]" />
+                    <inputColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].Columns[contact_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="contact_name"
+                      externalMetadataColumnId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].ExternalColumns[contact_name]"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[contact_name]" />
+                    <inputColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].Columns[phone_25]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="phone_25"
+                      externalMetadataColumnId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].ExternalColumns[phone]"
+                      lineageId="Package\suppliers\Conversión de datos.Outputs[Salida de conversión de datos].Columns[phone_25]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_id]"
+                      dataType="i4"
+                      name="supplier_id" />
+                    <externalMetadataColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="supplier_name" />
+                    <externalMetadataColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].ExternalColumns[contact_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="contact_name" />
+                    <externalMetadataColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB].ExternalColumns[phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="phone" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\suppliers\Destination - Warehouse Suppliers.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\suppliers\Destination - Warehouse Suppliers.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\suppliers\Destination - Warehouse Suppliers.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\suppliers\Destination - Warehouse Suppliers.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\suppliers\Origen de archivo plano - suppliers"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Origen de archivo plano;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Origen de archivo plano"
+              localeId="3082"
+              name="Origen de archivo plano - suppliers"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Especifica si las columnas de longitud cero se tratan como NULL."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre de una columna de salida que contiene el nombre de archivo. Si no se especifica ningún nombre, no se genera ninguna columna de salida con el nombre de archivo."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\suppliers\Origen de archivo plano - suppliers.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[CSV Suppliers]"
+                  connectionManagerRefId="Package.ConnectionManagers[CSV Suppliers]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano]"
+                  name="Salida de origen de archivo plano">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[supplier_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].ExternalColumns[supplier_id]"
+                      length="50"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[supplier_id]"
+                      name="supplier_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si los datos están en formato binario."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].ExternalColumns[supplier_name]"
+                      length="50"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[supplier_name]"
+                      name="supplier_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si los datos están en formato binario."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[contact_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].ExternalColumns[contact_name]"
+                      length="50"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[contact_name]"
+                      name="contact_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si los datos están en formato binario."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[phone]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].ExternalColumns[phone]"
+                      length="50"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].Columns[phone]"
+                      name="phone"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si los datos están en formato binario."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].ExternalColumns[supplier_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier_id" />
+                    <externalMetadataColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].ExternalColumns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier_name" />
+                    <externalMetadataColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].ExternalColumns[contact_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="contact_name" />
+                    <externalMetadataColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano].ExternalColumns[phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="phone" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de error de origen de archivo plano]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de archivo plano">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de error de origen de archivo plano].Columns[Columna de salida de error de origen de archivo plano]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Columna de salida de error de origen de archivo plano"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de error de origen de archivo plano].Columns[Columna de salida de error de origen de archivo plano]"
+                      name="Columna de salida de error de origen de archivo plano" />
+                    <outputColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de error de origen de archivo plano].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de error de origen de archivo plano].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de error de origen de archivo plano].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de error de origen de archivo plano].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\suppliers.Paths[Salida de conversión de datos]"
+              endId="Package\suppliers\Destination - Warehouse Suppliers.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de conversión de datos"
+              startId="Package\suppliers\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\suppliers.Paths[Salida de origen de archivo plano]"
+              endId="Package\suppliers\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de origen de archivo plano"
+              startId="Package\suppliers\Origen de archivo plano - suppliers.Outputs[Salida de origen de archivo plano]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Truncate Datawarehouse Financial Transactions"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
@@ -1049,11 +1548,15 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="183.2,41.6"
           Id="Package\CostumerTransactions"
           TopLeft="219.99998797973,226.199998427033" />
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\exchange_rates"
+          TopLeft="620.833299412497,235.733331694073" />
         <NodeLayout
           Size="379.2,41.6"
           Id="Package\Truncate Datawarehouse Financial Transactions"
@@ -1093,9 +1596,9 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="152,41.6"
-          Id="Package\exchange_rates"
-          TopLeft="620.833299412497,235.733331694073" />
+          Size="173.6,41.6"
+          Id="Package\suppliers"
+          TopLeft="1002.49994522582,233.999998372793" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1150,7 +1653,7 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\CostumerTransactions\Source financial_transactions">
+    design-time-name="Package\CostumerTransactions\Destination Datawarehouse financial_transactions">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1163,7 +1666,7 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\CostumerTransactions\Destination Datawarehouse financial_transactions">
+    design-time-name="Package\CostumerTransactions\Source financial_transactions">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1266,6 +1769,107 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\exchange_rates\Destination - Warehouse exchange_rates">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\suppliers">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="239.2,41.6"
+          Id="Package\suppliers\Origen de archivo plano - suppliers"
+          TopLeft="337.999994963408,231.999996542931" />
+        <NodeLayout
+          Size="239.2,41.6"
+          Id="Package\suppliers\Destination - Warehouse Suppliers"
+          TopLeft="336.999994978309,498.999992564321" />
+        <NodeLayout
+          Size="173.6,41.6"
+          Id="Package\suppliers\Conversión de datos"
+          TopLeft="357.999994665384,360.999994620681" />
+        <EdgeLayout
+          Id="Package\suppliers.Paths[Salida de origen de archivo plano]"
+          TopLeft="457.599994963408,273.599996542931">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-12.8000002980233,87.3999980777501"
+              Start="0,0"
+              End="-12.8000002980233,79.8999980777501">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.6999990388751" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,39.6999990388751"
+                    Point2="0,43.6999990388751"
+                    Point3="-4,43.6999990388751" />
+                  <mssgle:LineSegment
+                    End="-8.80000029802329,43.6999990388751" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-8.80000029802329,43.6999990388751"
+                    Point2="-12.8000002980233,43.6999990388751"
+                    Point3="-12.8000002980233,47.6999990388751" />
+                  <mssgle:LineSegment
+                    End="-12.8000002980233,79.8999980777501" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\suppliers.Paths[Salida de conversión de datos]"
+          TopLeft="444.799994665384,402.599994620681">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11.8000003129245,96.3999979436398"
+              Start="0,0"
+              End="11.8000003129245,88.8999979436398">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.1999989718199" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,44.1999989718199"
+                    Point2="0,48.1999989718199"
+                    Point3="4,48.1999989718199" />
+                  <mssgle:LineSegment
+                    End="7.80000031292445,48.1999989718199" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7.80000031292445,48.1999989718199"
+                    Point2="11.8000003129245,48.1999989718199"
+                    Point3="11.8000003129245,52.1999989718199" />
+                  <mssgle:LineSegment
+                    End="11.8000003129245,88.8999979436398" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\suppliers\Destination - Warehouse Suppliers">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
