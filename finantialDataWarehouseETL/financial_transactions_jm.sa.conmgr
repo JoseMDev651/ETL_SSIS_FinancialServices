@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="financial_transactions_jm.sa"
+  DTS:DTSID="{45EA2CDA-55F0-4F5B-B479-23B7536A613C}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=JOSEDEV1977\JM1977;User ID=sa;Initial Catalog=financial_transactions_jm;Provider=MSOLEDBSQL.1;Application Name=SSIS-Package-{45EA2CDA-55F0-4F5B-B479-23B7536A613C}JOSEDEV1977\JM1977.financial_transactions_jm.sa;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAACAAAAAAAQZgAAAAEAACAAAACz7K0/mjn26VCFzo3IM1MIjmYKU2oeLA/HrKzmS1vH4QAAAAAOgAAAAAIAACAAAACTFAZfY0LeuSyzHTwzltd16tLoBoFBqxuy+10NT+Z0YYAAAABFsyRFoIZqiZxMzMsXHMvM6vLjsKybs62FF0WLLcawrZ12IYiCCCvRYVUX+vYD86iA3+sbsA7jHo0inP03Lh29VrBCr37xJPAzC+A4y7cZkXQB52dhCGsf5FAlnFug6ebfbWfyWx1YR4d5qdB/E4LdmvE0WkLQ+Lbqp/uMpx0oCEAAAACo83F7Ek+qBXtp841U+DfUNs++LTt3Xq2e1m43RPPP8b3QynpzueESQDj1xWxcFDbrnaF5eZj1vWAx8s49jPcc</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

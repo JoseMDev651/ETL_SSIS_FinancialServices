@@ -11,46 +11,10 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="FinancialTransactions"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{CB2B2A0A-57CF-426E-AD31-AF6081F6394F}">
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{6E5B8F0E-E807-4D14-BE7E-6EE4F1CC8390}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}"
-      DTS:ObjectName="JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=JOSEDEV1977\JM1977;User ID=sa;Initial Catalog=financial_datawarehouse_jm;Provider=MSOLEDBSQL.1;Application Name=SSIS-Package-{02504C3A-E9B5-46E1-8444-65ABCC912DF5}JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa;Auto Translate=False;">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADcfolH6HQppgguEy9boNnNuav/XXB0cuhD96up8r8F6gAAAAAOgAAAAAIAACAAAABvZTjm4TdviRf7gZG9kqWfLRkY4buMdjcu91KsxctFFBAAAAA/2obKM64QgCLrHe/k1kBfQAAAAG3TsAFMXi6KCvKIRn4Vbb1qqYMzzCB6zt3dxuts8RlLTdLIoa3uU0r8xKahf8slMH009EKeWx8quKP6uoQV7+w</DTS:Password>
-        </DTS:ConnectionManager>
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_transactions_jm.sa]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{45EA2CDA-55F0-4F5B-B479-23B7536A613C}"
-      DTS:ObjectName="JOSEDEV1977\JM1977.financial_transactions_jm.sa">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=JOSEDEV1977\JM1977;User ID=sa;Initial Catalog=financial_transactions_jm;Provider=MSOLEDBSQL.1;Application Name=SSIS-Package-{45EA2CDA-55F0-4F5B-B479-23B7536A613C}JOSEDEV1977\JM1977.financial_transactions_jm.sa;Auto Translate=False;">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABmxOSN2hlfbOp+5/eR9mTkIg/TG3+pexP5ZaDBoZ0TkgAAAAAOgAAAAAIAACAAAABLdX/BjZWLF3wzC+sXGS5q2DbCiLMKA2hTB8nHqJp7KRAAAAD78keqA8SpDfrOtGeRv5JaQAAAAE1T22sjsGaHo3o5Is8TRBHY2hMxAsP1/MMXScb5uSxFnPy9BQwv06z77MBkojCza2aI3roa7KRnDhE7lgGCqWI</DTS:Password>
-        </DTS:ConnectionManager>
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
@@ -126,8 +90,8 @@
               <connections>
                 <connection
                   refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa]"
-                  connectionManagerRefId="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa]"
+                  connectionManagerID="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[financial_datawarehouse_jm.sa]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -181,6 +145,30 @@
                       cachedName="currency"
                       externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[currency]"
                       lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[currency]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[customer_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="customer_name"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[customer_name]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_name]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[costumer_email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="costumer_email"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[customer_email]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[costumer_email]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[customer_phone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="customer_phone"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[customer_phone]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_phone]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -214,6 +202,24 @@
                       dataType="str"
                       length="10"
                       name="currency" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[customer_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="customer_name" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[customer_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="customer_email" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[customer_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="customer_phone" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -267,7 +273,9 @@
                   dataType="System.String"
                   description="Comando SQL para ejecutar."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select t.*, c.customer_name, c.email costumer_email, c.phone customer_phone
+from  dbo.financial_transactions t 
+inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
                 <property
                   dataType="System.String"
                   description="Variable que contiene el comando SQL para ejecutar."
@@ -284,7 +292,7 @@
                   dataType="System.Int32"
                   description="Especifica el modo utilizado para obtener acceso a la base de datos."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="Asignaciones entre los parámetros del comando SQL y las variables."
@@ -293,8 +301,8 @@
               <connections>
                 <connection
                   refId="Package\CostumerTransactions\Source financial_transactions.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_transactions_jm.sa]"
-                  connectionManagerRefId="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_transactions_jm.sa]"
+                  connectionManagerID="{45EA2CDA-55F0-4F5B-B479-23B7536A613C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[financial_transactions_jm.sa]"
                   description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                   name="OleDbConnection" />
               </connections>
@@ -363,6 +371,39 @@
                       lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[currency]"
                       name="currency"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[customer_name]"
+                      length="50"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_name]"
+                      name="customer_name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[costumer_email]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[costumer_email]"
+                      length="100"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[costumer_email]"
+                      name="costumer_email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[customer_phone]"
+                      length="20"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_phone]"
+                      name="customer_phone"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -396,6 +437,24 @@
                       dataType="str"
                       length="10"
                       name="currency" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[customer_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="customer_name" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[costumer_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="costumer_email" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[customer_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="customer_phone" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -440,6 +499,27 @@
                       lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[currency]"
                       name="currency" />
                     <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[customer_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[customer_name]"
+                      name="customer_name" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[costumer_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[costumer_email]"
+                      name="costumer_email" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[customer_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[customer_phone]"
+                      name="customer_phone" />
+                    <outputColumn
                       refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
                       dataType="i4"
                       lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
@@ -467,7 +547,34 @@
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Datawarehouse Financial Transactions"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{E7185F14-F133-49DC-88C6-24B0B9651589}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Datawarehouse Financial Transactions"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}"
+          SQLTask:SqlStatementSource="truncate table dbo.financial_transactions" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{9FAEB08A-739A-4F9E-8CE9-92B45F40D90B}"
+      DTS:From="Package\Truncate Datawarehouse Financial Transactions"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\CostumerTransactions" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
 <!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
@@ -479,11 +586,49 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="183.2,41.6"
           Id="Package\CostumerTransactions"
-          TopLeft="248.333319764999,115.266665865117" />
+          TopLeft="219.99998797973,226.199998427033" />
+        <NodeLayout
+          Size="379.2,41.6"
+          Id="Package\Truncate Datawarehouse Financial Transactions"
+          TopLeft="109.999993989865,127.399999114076" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="299.599993989865,168.999999114076">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11.9999939898653,57.1999993129571"
+              Start="0,0"
+              End="11.9999939898653,49.6999993129571">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5999996564785" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.5999996564785"
+                    Point2="0,28.5999996564785"
+                    Point3="4,28.5999996564785" />
+                  <mssgle:LineSegment
+                    End="7.99999398986529,28.5999996564785" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7.99999398986529,28.5999996564785"
+                    Point2="11.9999939898653,28.5999996564785"
+                    Point3="11.9999939898653,32.5999996564785" />
+                  <mssgle:LineSegment
+                    End="11.9999939898653,49.6999993129571" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
