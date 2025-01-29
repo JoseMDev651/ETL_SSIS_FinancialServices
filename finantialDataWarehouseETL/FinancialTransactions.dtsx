@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="FinancialTransactions"
   DTS:PackageType="5"
-  DTS:VersionBuild="40"
-  DTS:VersionGUID="{EEC3D3A9-4A81-4D59-B65C-2AFF6BAA468C}">
+  DTS:VersionBuild="44"
+  DTS:VersionGUID="{A373BEF2-FA2E-4AD7-A28C-E897F0FC4F22}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -137,7 +137,7 @@ where [refTable].[from_currency] = ?</property>
                   dataType="System.Int32"
                   description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
@@ -207,7 +207,6 @@ where [refTable].[from_currency] = ?</property>
                 <output
                   refId="Package\CostumerTransactions\Búsqueda exchange_rates.Outputs[Salida de entradas coincidentes de búsqueda]"
                   errorOrTruncationOperation="Búsqueda"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Salida de entradas coincidentes de búsqueda"
                   synchronousInputId="Package\CostumerTransactions\Búsqueda exchange_rates.Inputs[Entrada de búsqueda]">
@@ -492,6 +491,22 @@ where [refTable].[from_currency] = ?</property>
                       cachedName="amount_USD"
                       externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[amount_USD]"
                       lineageId="Package\CostumerTransactions\Create Amount USD.Outputs[Salida de columna derivada].Columns[amount_USD]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[supplier_contact_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="supplier_contact_name"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_contact_name]"
+                      lineageId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas coincidentes de búsqueda].Columns[supplier_contact_name]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[supplier_phone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="supplier_phone"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_phone]"
+                      lineageId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas coincidentes de búsqueda].Columns[supplier_phone]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -547,6 +562,18 @@ where [refTable].[from_currency] = ?</property>
                       refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[amount_USD]"
                       dataType="r8"
                       name="amount_USD" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_contact_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="supplier_contact_name" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="supplier_phone" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -568,6 +595,184 @@ where [refTable].[from_currency] = ?</property>
                       refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CostumerTransactions\Lookup Supplier"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Búsqueda;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;6"
+              description="Combina columnas adicionales con el flujo de datos mediante la búsqueda de valores en una tabla. Por ejemplo, se combina la columna 'id. de empleado' con la tabla de empleados para obtener la 'fecha de contratación' y 'el nombre de empleado'. Se recomienda esta transformación cuando hay suficiente espacio en memoria para la tabla de búsqueda."
+              name="Lookup Supplier"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Especifica la instrucción SQL que genera la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[suppliers]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica una instrucción SQL que usa parámetros para generar la tabla de búsqueda."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[suppliers]) [refTable]
+where [refTable].[supplier_name] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de conexión utilizado para tener acceso al conjunto de datos de referencia."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de caché de la tabla de búsqueda."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cómo la transformación de búsquedas trata las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el porcentaje de la caché asignado a las filas sin entradas coincidentes en el conjunto de datos de referencia."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Uso de memoria máximo para la caché de referencia en una plataforma de 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indica si se debe hacer referencia a metadatos en formato XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="supplier_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="supplier_name" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="contact_name" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="phone" dataType="DT_STR" length="25" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Especifica la lista de identificadores de linaje que están asignados a los parámetros que usa la instrucción SQL de la propiedad SQLCommand. Las entradas de la lista están separadas por puntos y comas."
+                  name="ParameterMap">#{Package\CostumerTransactions\Unión de todo.Outputs[Salida de Unión de todo 1].Columns[supplier_name]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determina si las claves duplicadas de los datos de referencia se deben tratar como errores cuando se usa el modo de caché."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CostumerTransactions\Lookup Supplier.Connections[OleDbConnection]"
+                  connectionManagerID="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[financial_datawarehouse_jm.sa]"
+                  description="Administrador de conexiones utilizado para obtener acceso a los datos de búsqueda."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CostumerTransactions\Lookup Supplier.Inputs[Entrada de búsqueda]"
+                  name="Entrada de búsqueda">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Lookup Supplier.Inputs[Entrada de búsqueda].Columns[supplier_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="supplier_name"
+                      lineageId="Package\CostumerTransactions\Unión de todo.Outputs[Salida de Unión de todo 1].Columns[supplier_name]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia con la que se combina una columna."
+                          name="JoinToReferenceColumn">supplier_name</property>
+                        <property
+                          dataType="System.Null"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas coincidentes de búsqueda]"
+                  errorOrTruncationOperation="Búsqueda"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Salida de entradas coincidentes de búsqueda"
+                  synchronousInputId="Package\CostumerTransactions\Lookup Supplier.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas coincidentes de búsqueda].Columns[supplier_contact_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copiar columna"
+                      length="100"
+                      lineageId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas coincidentes de búsqueda].Columns[supplier_contact_name]"
+                      name="supplier_contact_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">contact_name</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas coincidentes de búsqueda].Columns[supplier_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copiar columna"
+                      length="25"
+                      lineageId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas coincidentes de búsqueda].Columns[supplier_phone]"
+                      name="supplier_phone"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Especifica la columna de la tabla de referencia de la que se copia una columna."
+                          name="CopyFromReferenceColumn">phone</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas no coincidentes de búsqueda]"
+                  description="Salida de búsqueda que trata las filas sin entradas coincidentes en el conjunto de datos de referencia. Utilice esta salida cuando la propiedad NoMatchBehavior esté establecida en 'Enviar las filas sin entradas coincidentes a la salida de entradas no coincidentes'."
+                  exclusionGroup="1"
+                  name="Salida de entradas no coincidentes de búsqueda"
+                  synchronousInputId="Package\CostumerTransactions\Lookup Supplier.Inputs[Entrada de búsqueda]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de error de búsqueda]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de búsqueda"
+                  synchronousInputId="Package\CostumerTransactions\Lookup Supplier.Inputs[Entrada de búsqueda]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de error de búsqueda].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de error de búsqueda].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1332,7 +1537,7 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
               startId="Package\CostumerTransactions\No Exchange Rate.Outputs[Salida de columna derivada]" />
             <path
               refId="Package\CostumerTransactions.Paths[Salida de columna derivada1]"
-              endId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB]"
+              endId="Package\CostumerTransactions\Lookup Supplier.Inputs[Entrada de búsqueda]"
               name="Salida de columna derivada"
               startId="Package\CostumerTransactions\Create Amount USD.Outputs[Salida de columna derivada]" />
             <path
@@ -1340,6 +1545,11 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
               endId="Package\CostumerTransactions\Unión de todo.Inputs[Entrada de Unión de todo 1]"
               name="Salida de entradas coincidentes de búsqueda"
               startId="Package\CostumerTransactions\Búsqueda exchange_rates.Outputs[Salida de entradas coincidentes de búsqueda]" />
+            <path
+              refId="Package\CostumerTransactions.Paths[Salida de entradas coincidentes de búsqueda1]"
+              endId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de entradas coincidentes de búsqueda"
+              startId="Package\CostumerTransactions\Lookup Supplier.Outputs[Salida de entradas coincidentes de búsqueda]" />
             <path
               refId="Package\CostumerTransactions.Paths[Salida de entradas no coincidentes de búsqueda]"
               endId="Package\CostumerTransactions\No Exchange Rate.Inputs[Entrada de columna derivada]"
@@ -2554,7 +2764,7 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
         <NodeLayout
           Size="308.8,41.6"
           Id="Package\CostumerTransactions\Destination Datawarehouse financial_transactions"
-          TopLeft="191.333321409094,465.533328951664" />
+          TopLeft="184.333321513402,588.533327118821" />
         <NodeLayout
           Size="201.6,41.6"
           Id="Package\CostumerTransactions\Búsqueda exchange_rates"
@@ -2733,26 +2943,78 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\CostumerTransactions\Lookup Supplier"
+          TopLeft="284.999995753169,463.999993085861" />
         <EdgeLayout
           Id="Package\CostumerTransactions.Paths[Salida de columna derivada1]"
-          TopLeft="345.066658782297,389.399995008111">
+          TopLeft="344.3999961555,389.399995008111">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,76.1333339435525"
+              EndConnector="17.3999995976688,74.5999980777499"
               Start="0,0"
-              End="0,68.6333339435525">
+              End="17.3999995976688,67.0999980777499">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,68.6333339435525" />
+                    End="0,33.299999038875" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.299999038875"
+                    Point2="0,37.299999038875"
+                    Point3="4,37.299999038875" />
+                  <mssgle:LineSegment
+                    End="13.3999995976688,37.299999038875" />
+                  <mssgle:CubicBezierSegment
+                    Point1="13.3999995976688,37.299999038875"
+                    Point2="17.3999995976688,37.299999038875"
+                    Point3="17.3999995976688,41.299999038875" />
+                  <mssgle:LineSegment
+                    End="17.3999995976688,67.0999980777499" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CostumerTransactions.Paths[Salida de entradas coincidentes de búsqueda1]"
+          TopLeft="361.799995753169,505.599993085861">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-23.0666742397671,82.9333340329597"
+              Start="0,0"
+              End="-23.0666742397671,75.4333340329597">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.4666670164798" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,37.4666670164798"
+                    Point2="0,41.4666670164798"
+                    Point3="-4,41.4666670164798" />
+                  <mssgle:LineSegment
+                    End="-19.0666742397671,41.4666670164798" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-19.0666742397671,41.4666670164798"
+                    Point2="-23.0666742397671,41.4666670164798"
+                    Point3="-23.0666742397671,45.4666670164798" />
+                  <mssgle:LineSegment
+                    End="-23.0666742397671,75.4333340329597" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-111.352360557384,46.4666670164798,199.638046875,12.1953125"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2999,6 +3261,29 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
         <Name>UsedTableName</Name>
         <Value
           type="q3:string">[dbo].[exchange_rates]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CostumerTransactions\Lookup Supplier">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[suppliers]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>

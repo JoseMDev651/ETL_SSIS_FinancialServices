@@ -7,3 +7,7 @@ truncate table dbo.financial_transactions;
 
 alter table dbo.financial_transactions
 add [amount_USD] float NULL
+
+alter table dbo.financial_transactions
+add [supplier_contact_name] [varchar](100) NULL,
+	[supplier_phone] [varchar](25) NULL
