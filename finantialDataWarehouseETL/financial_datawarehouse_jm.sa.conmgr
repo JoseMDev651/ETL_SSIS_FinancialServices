@@ -3,6 +3,8 @@
   DTS:ObjectName="financial_datawarehouse_jm.sa"
   DTS:DTSID="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}"
   DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::Financial_datawarehouse_jmSa_ServerName]</DTS:PropertyExpression>
   <DTS:ObjectData>
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"
@@ -10,7 +12,7 @@
       DTS:ConnectionString="Data Source=JOSEDEV1977\JM1977;User ID=sa;Initial Catalog=financial_datawarehouse_jm;Provider=MSOLEDBSQL.1;Auto Translate=False;Application Name=SSIS-Package-{02504C3A-E9B5-46E1-8444-65ABCC912DF5}JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa;">
       <DTS:Password
         DTS:Name="Password"
-        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAACAAAAAAAQZgAAAAEAACAAAAD7oFRiFHAuzjxMIDHlVDmMQAFdQS1zrBJq2vyJ6TjmWAAAAAAOgAAAAAIAACAAAADPVxoAK2eUvGzXdPUKjd6CH9MCmvqsvJLHM8puSRzv54AAAAAijXEGCqekMePr4DwxsWMvyFQsxx3MrO7vuDCdKjLl4SE2426IDsDB7EIoSCwMSORZOfzWDJoxhher9eli8VKyOGOTtIRkAiPOho8DE+knrxcygcJauRwfgcWKfche7V71K+RogzD7dGcaw43pbRQpveV8kDmefjKKoWLpzELaLEAAAAAfUoygcPCYfrZRhQjnZ7LMVdSDD2jFma0oyizKJd9441Lvoy9qzSS836o4m8SekAHxhHaOng0IaEqGTpwhxUcv</DTS:Password>
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAACAAAAAAAQZgAAAAEAACAAAACRn9VHAW2tIlXMdY/fedQP/Hg2rEn3LoEW4vDRt3Od7AAAAAAOgAAAAAIAACAAAADe2HF9z1FotEh7UcpsqpAQSD8SdHAyLIZIwaaVSsvfMIAAAACqBr1A88ZROXlURQjDUOAkwRwliLc/1JIop17dMuCcEr7Iiy6i8eMCKW1vugm3F6Kdz/JwOgfQ5a9jG0SAkK0r4J+0fhay5PMo5kzCl/L3uo0wYCPKNXintPbNZCwlo/lRtt/9caO2yNtAEJ+kfXLKrPSegJkh4kKUUdoE3axpHUAAAACNUfY3tWCQIRCjTI5WnxNGNz0cSuyU5zkLknCGqN6ZCdZCAyqZKl79WXyg+6/oPt60k6x0MCAs0gxZtxVDnYkU</DTS:Password>
     </DTS:ConnectionManager>
   </DTS:ObjectData>
 </DTS:ConnectionManager>

@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="FinancialTransactions"
   DTS:PackageType="5"
-  DTS:VersionBuild="53"
-  DTS:VersionGUID="{88BB4C7B-2A24-40E0-9AB9-63A771792BA1}">
+  DTS:VersionBuild="63"
+  DTS:VersionGUID="{CFC17FE5-FEE7-4810-9B25-7E1B1302998B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -21,6 +21,8 @@
       DTS:CreationName="FLATFILE"
       DTS:DTSID="{3523626E-E859-4215-B0F6-9CAD9C98B22E}"
       DTS:ObjectName="CSV Suppliers">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::CSVSuppliers_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -77,6 +79,12 @@
       DTS:CreationName="EXCEL"
       DTS:DTSID="{6AF9CC8C-9A2D-4CFE-A671-FF2B4A756D87}"
       DTS:ObjectName="Excel Exchange Rates">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::ExcelExchangeRates_ConnectionString]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[$Project::ExcelExchangeRates_ExcelFilePath]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::ExcelExchangeRates_ServerName]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
@@ -89,6 +97,8 @@
       DTS:CreationName="FLATFILE"
       DTS:DTSID="{17D2183D-81D1-4D67-B473-86FAAB52161E}"
       DTS:ObjectName="Missing Supplier">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::MissingSupplier_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:Format="Delimited"
@@ -2968,7 +2978,7 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate exchange_rates"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2985,7 +2995,7 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate suppliers"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -3057,13 +3067,13 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
           Id="Package\exchange_rates"
           TopLeft="60.8333300095467,192.399998662074" />
         <NodeLayout
-          Size="306.4,41.6"
-          Id="Package\Truncate Datawarehouse Financial Transactions"
-          TopLeft="83.3333287802006,431.599996998707" />
-        <NodeLayout
           Size="173.6,41.6"
           Id="Package\suppliers"
           TopLeft="385.83331225233,193.266665322714" />
+        <NodeLayout
+          Size="306.4,41.6"
+          Id="Package\Truncate Datawarehouse Financial Transactions"
+          TopLeft="83.3333287802006,431.599996998707" />
         <NodeLayout
           Size="196,41.6"
           Id="Package\Truncate exchange_rates"
@@ -3072,6 +3082,40 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
           Size="164,41.6"
           Id="Package\Truncate suppliers"
           TopLeft="380.833317989276,100.73333333936" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="236.533328780201,473.199996998707">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-12.4333360196817,63.2666659374368"
+              Start="0,0"
+              End="-12.4333360196817,55.7666659374368">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.6333329687184" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.6333329687184"
+                    Point2="0,31.6333329687184"
+                    Point3="-4,31.6333329687184" />
+                  <mssgle:LineSegment
+                    End="-8.43333601968169,31.6333329687184" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-8.43333601968169,31.6333329687184"
+                    Point2="-12.4333360196817,31.6333329687184"
+                    Point3="-12.4333360196817,35.6333329687184" />
+                  <mssgle:LineSegment
+                    End="-12.4333360196817,55.7666659374368" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 1]"
           TopLeft="134.916664048615,136.26666671488">
@@ -3120,40 +3164,6 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
                     Point3="9.79999426305397,29.4666659916772" />
                   <mssgle:LineSegment
                     End="9.79999426305397,43.4333319833545" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="236.533328780201,473.199996998707">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-12.4333360196817,63.2666659374368"
-              Start="0,0"
-              End="-12.4333360196817,55.7666659374368">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,27.6333329687184" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,27.6333329687184"
-                    Point2="0,31.6333329687184"
-                    Point3="-4,31.6333329687184" />
-                  <mssgle:LineSegment
-                    End="-8.43333601968169,31.6333329687184" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-8.43333601968169,31.6333329687184"
-                    Point2="-12.4333360196817,31.6333329687184"
-                    Point3="-12.4333360196817,35.6333329687184" />
-                  <mssgle:LineSegment
-                    End="-12.4333360196817,55.7666659374368" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3606,6 +3616,42 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\CostumerTransactions\Source financial_transactions">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CostumerTransactions\Lookup Supplier">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[suppliers]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\CostumerTransactions\Destination Datawarehouse financial_transactions">
     <Properties>
       <Property>
@@ -3619,15 +3665,25 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\CostumerTransactions\Source financial_transactions">
+    design-time-name="Package\CostumerTransactions\Búsqueda exchange_rates">
     <Properties>
       <Property>
-        <Name>DataSourceViewID</Name>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[exchange_rates]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q2:string">Table</Value>
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -3639,7 +3695,7 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
         <NodeLayout
           Size="235.2,41.6"
           Id="Package\exchange_rates\Origen de Excel - exchange_rates"
-          TopLeft="338.999994948506,104.999998435378" />
+          TopLeft="340.66666152411,102.399998453458" />
         <NodeLayout
           Size="269.6,41.6"
           Id="Package\exchange_rates\Destination - Warehouse exchange_rates"
@@ -3650,18 +3706,18 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
           TopLeft="364.999994561076,212.999996826053" />
         <EdgeLayout
           Id="Package\exchange_rates.Paths[Salida de origen de Excel]"
-          TopLeft="454.199994754791,146.599998435378">
+          TopLeft="455.033328042593,143.999998453458">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,66.3999983906746"
+              EndConnector="0,68.9999983725949"
               Start="0,0"
-              End="0,58.8999983906746">
+              End="0,61.4999983725949">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,58.8999983906746" />
+                    End="0,61.4999983725949" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3831,52 +3887,6 @@ inner join dbo.customer_details c on t.customer_id = c.customer_id</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\CostumerTransactions\Búsqueda exchange_rates">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[exchange_rates]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\CostumerTransactions\Lookup Supplier">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[suppliers]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

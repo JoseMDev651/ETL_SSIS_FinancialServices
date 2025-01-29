@@ -3,6 +3,8 @@
   DTS:ObjectName="financial_transactions_jm.sa"
   DTS:DTSID="{45EA2CDA-55F0-4F5B-B479-23B7536A613C}"
   DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::Financial_transactions_jmSa_ServerName]</DTS:PropertyExpression>
   <DTS:ObjectData>
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"
@@ -10,7 +12,7 @@
       DTS:ConnectionString="Data Source=JOSEDEV1977\JM1977;User ID=sa;Initial Catalog=financial_transactions_jm;Provider=MSOLEDBSQL.1;Application Name=SSIS-Package-{45EA2CDA-55F0-4F5B-B479-23B7536A613C}JOSEDEV1977\JM1977.financial_transactions_jm.sa;Auto Translate=False;">
       <DTS:Password
         DTS:Name="Password"
-        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAACAAAAAAAQZgAAAAEAACAAAACz7K0/mjn26VCFzo3IM1MIjmYKU2oeLA/HrKzmS1vH4QAAAAAOgAAAAAIAACAAAACTFAZfY0LeuSyzHTwzltd16tLoBoFBqxuy+10NT+Z0YYAAAABFsyRFoIZqiZxMzMsXHMvM6vLjsKybs62FF0WLLcawrZ12IYiCCCvRYVUX+vYD86iA3+sbsA7jHo0inP03Lh29VrBCr37xJPAzC+A4y7cZkXQB52dhCGsf5FAlnFug6ebfbWfyWx1YR4d5qdB/E4LdmvE0WkLQ+Lbqp/uMpx0oCEAAAACo83F7Ek+qBXtp841U+DfUNs++LTt3Xq2e1m43RPPP8b3QynpzueESQDj1xWxcFDbrnaF5eZj1vWAx8s49jPcc</DTS:Password>
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAACAAAAAAAQZgAAAAEAACAAAABQj1ugdsHUKeBIZzRXM9brKlHtsQxCCwS/B/EWEQdt7wAAAAAOgAAAAAIAACAAAACALeE7t27qlBbT1VHdQ7TdSRH1Su7wfLmiamwYrtcA+4AAAAAICjZYQiJcFD+eHhxHpR4oRpSZqBGhiDrzaVAiE6d6CZRytJtg/0E+Hq0pTVEGJ9W9AMbWWRF7CTJvggHipHsb/ABsAPLdgOPsYMgbA+4CECSxsgg58iPGrjEn7hoNilhiUm9jk1K9u6CtYG8OIaH1nmssiRLYc4aUcLCv8eD65UAAAAChqMBpdISH3cF5Lq6QhuAADiKqO4TGoTX9CqxF8aAnydaT0ijJlzBKzaD1iz7Z8leQgjsTiAsM7k+GDG5UAI5L</DTS:Password>
     </DTS:ConnectionManager>
   </DTS:ObjectData>
 </DTS:ConnectionManager>
