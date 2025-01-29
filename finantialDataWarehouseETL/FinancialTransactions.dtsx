@@ -1,0 +1,567 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/29/2025 10:52:12 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JOSEDEV1977"
+  DTS:CreatorName="JOSEDEV1977\jmlop"
+  DTS:DTSID="{AD16C374-5F9B-491B-BD18-BEF727DE3F5A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="FinancialTransactions"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{CB2B2A0A-57CF-426E-AD31-AF6081F6394F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{02504C3A-E9B5-46E1-8444-65ABCC912DF5}"
+      DTS:ObjectName="JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=JOSEDEV1977\JM1977;User ID=sa;Initial Catalog=financial_datawarehouse_jm;Provider=MSOLEDBSQL.1;Application Name=SSIS-Package-{02504C3A-E9B5-46E1-8444-65ABCC912DF5}JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADcfolH6HQppgguEy9boNnNuav/XXB0cuhD96up8r8F6gAAAAAOgAAAAAIAACAAAABvZTjm4TdviRf7gZG9kqWfLRkY4buMdjcu91KsxctFFBAAAAA/2obKM64QgCLrHe/k1kBfQAAAAG3TsAFMXi6KCvKIRn4Vbb1qqYMzzCB6zt3dxuts8RlLTdLIoa3uU0r8xKahf8slMH009EKeWx8quKP6uoQV7+w</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_transactions_jm.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{45EA2CDA-55F0-4F5B-B479-23B7536A613C}"
+      DTS:ObjectName="JOSEDEV1977\JM1977.financial_transactions_jm.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=JOSEDEV1977\JM1977;User ID=sa;Initial Catalog=financial_transactions_jm;Provider=MSOLEDBSQL.1;Application Name=SSIS-Package-{45EA2CDA-55F0-4F5B-B479-23B7536A613C}JOSEDEV1977\JM1977.financial_transactions_jm.sa;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxl53qBY80qOi4eKnim62QAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABmxOSN2hlfbOp+5/eR9mTkIg/TG3+pexP5ZaDBoZ0TkgAAAAAOgAAAAAIAACAAAABLdX/BjZWLF3wzC+sXGS5q2DbCiLMKA2hTB8nHqJp7KRAAAAD78keqA8SpDfrOtGeRv5JaQAAAAE1T22sjsGaHo3o5Is8TRBHY2hMxAsP1/MMXScb5uSxFnPy9BQwv06z77MBkojCza2aI3roa7KRnDhE7lgGCqWI</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CostumerTransactions"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{9600B90B-3FF8-4E2C-B63F-E25C46764FDB}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CostumerTransactions"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destination Datawarehouse financial_transactions"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[financial_transactions]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_datawarehouse_jm.sa]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[transaction_id]"
+                      cachedDataType="i4"
+                      cachedName="transaction_id"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[transaction_id]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[transaction_id]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[customer_id]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_id]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[supplier_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="supplier_name"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_name]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[supplier_name]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[transaction_date]"
+                      cachedDataType="dbDate"
+                      cachedName="transaction_date"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[transaction_date]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[transaction_date]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[amount]"
+                      cachedDataType="numeric"
+                      cachedName="amount"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[amount]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[amount]" />
+                    <inputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].Columns[currency]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="currency"
+                      externalMetadataColumnId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[currency]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[currency]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[transaction_id]"
+                      dataType="i4"
+                      name="transaction_id" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier_name" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[transaction_date]"
+                      dataType="dbDate"
+                      name="transaction_date" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[amount]"
+                      dataType="numeric"
+                      name="amount"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB].ExternalColumns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="currency" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CostumerTransactions\Source financial_transactions"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Source financial_transactions"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[financial_transactions]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CostumerTransactions\Source financial_transactions.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_transactions_jm.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[JOSEDEV1977\JM1977.financial_transactions_jm.sa]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[transaction_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[transaction_id]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[transaction_id]"
+                      name="transaction_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[customer_id]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[customer_id]"
+                      name="customer_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[supplier_name]"
+                      length="50"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[supplier_name]"
+                      name="supplier_name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[transaction_date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[transaction_date]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[transaction_date]"
+                      name="transaction_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[amount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[amount]"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[amount]"
+                      name="amount"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[currency]"
+                      length="10"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].Columns[currency]"
+                      name="currency"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[transaction_id]"
+                      dataType="i4"
+                      name="transaction_id" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier_name" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[transaction_date]"
+                      dataType="dbDate"
+                      name="transaction_date" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[amount]"
+                      dataType="numeric"
+                      name="amount"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB].ExternalColumns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="currency" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[transaction_id]"
+                      dataType="i4"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[transaction_id]"
+                      name="transaction_id" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[customer_id]"
+                      name="customer_id" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[supplier_name]"
+                      name="supplier_name" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[transaction_date]"
+                      dataType="dbDate"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[transaction_date]"
+                      name="transaction_date" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[amount]"
+                      dataType="numeric"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[amount]"
+                      name="amount"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[currency]"
+                      name="currency" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CostumerTransactions.Paths[Salida de origen de OLE DB]"
+              endId="Package\CostumerTransactions\Destination Datawarehouse financial_transactions.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de origen de OLE DB"
+              startId="Package\CostumerTransactions\Source financial_transactions.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="183.2,41.6"
+          Id="Package\CostumerTransactions"
+          TopLeft="248.333319764999,115.266665865117" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\CostumerTransactions">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="214.4,41.6"
+          Id="Package\CostumerTransactions\Source financial_transactions"
+          TopLeft="225.833320994345,95.3333326703972" />
+        <NodeLayout
+          Size="308.8,41.6"
+          Id="Package\CostumerTransactions\Destination Datawarehouse financial_transactions"
+          TopLeft="228.333320857751,321.533331097431" />
+        <EdgeLayout
+          Id="Package\CostumerTransactions.Paths[Salida de origen de OLE DB]"
+          TopLeft="333.033320994345,136.933332670397">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="49.6999998634062,184.599998427033"
+              Start="0,0"
+              End="49.6999998634062,177.099998427033">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,88.2999992135167" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,88.2999992135167"
+                    Point2="0,92.2999992135167"
+                    Point3="4,92.2999992135167" />
+                  <mssgle:LineSegment
+                    End="45.6999998634062,92.2999992135167" />
+                  <mssgle:CubicBezierSegment
+                    Point1="45.6999998634062,92.2999992135167"
+                    Point2="49.6999998634062,92.2999992135167"
+                    Point3="49.6999998634062,96.2999992135167" />
+                  <mssgle:LineSegment
+                    End="49.6999998634062,177.099998427033" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CostumerTransactions\Source financial_transactions">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CostumerTransactions\Destination Datawarehouse financial_transactions">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
